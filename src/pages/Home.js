@@ -2,6 +2,10 @@ import { React, useState, useEffect, useRef } from 'react';
 
 import shopping_mark_blue from '../assets/img/union.png';
 import shopping_mark_white from '../assets/img/shop-mark.png';
+import Main from '../assets/img/main-1.png';
+import Luther from '../assets/img/main-2.png';
+import Contact from '../assets/img/main-3.png';
+import Pattern from '../assets/img/pattern.png';
 
 import Modal from '../components/Modal';
 import ShoppingModal from '../components/modals/Shopping';
@@ -80,9 +84,21 @@ function Home () {
     };
 
     return (
-        <div className='pr-[15px] pt-2'>
-            <div className=''>
-                <img className='px-1' src='https://images.complex.com/complex/images/c_scale,f_auto,q_auto,w_1920/fl_lossy,pg_1/gtuwosplzheykjybv2r0/blxst-melbourne-australia?fimg-ssr-default' alt='' />
+        <div className='pr-[15px]'>
+            <div>
+                <img className='w-[100vw]' src={Main} alt='' />
+            </div>
+
+            <div>
+                <img className='w-[100vw]' src={Luther} alt='' />
+            </div>
+
+            <div className='w-[full] h-[52px]'>
+                <img className='w-[21px]' src={Pattern} alt='' />
+            </div>
+
+            <div>
+                <img className='w-[100vw]' src={Contact} alt='' />
             </div>
 
             <div className='relative pt-[140px] flex justify-center items-center'>
