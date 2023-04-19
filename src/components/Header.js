@@ -4,8 +4,8 @@ import '../assets/style/Header.css';
 
 function Header () {
     return (
-        <div className='flex'>
-            <button className='hamburger'>
+        <div className='flex h-[86px]'>
+            {/* <button className='hamburger'>
                 <svg width="14px" height="12px" viewBox='0 0 14 12'>
                     <title>hamburger menu</title>
                     <g g="true" id='Page-1' stroke="none" stroke-width="1" fill="none" fillRule='evenodd'>
@@ -74,7 +74,7 @@ function Header () {
                         </span>
                     </a>
                 </li>
-            </ul>
+            </ul> */}
         </div>
     );
 }
