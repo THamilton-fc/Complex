@@ -5,14 +5,9 @@ module.exports = {
   ],
   theme: {
     fontFamily: {
-      'sans': ['Helvetica', 'Arial', 'sans-serif'],
-      'stix': ['STIX Two Math', 'sans-serif'],
-      'vogue': ['Vogue', 'sans-serif'],
+      'mont': ['Montserrat', 'sans-serif'],
     },
-    extend: {
-      backgroundImage: {
-      }
-    },
+    extend: {},
   },
   plugins: [],
 }
