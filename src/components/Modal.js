@@ -1,28 +1,28 @@
 import { React, useState } from 'react';
 
-import ShoppingModal from '../components/modals/Shopping';
+import ShoppingBagModal from '../components/modals/ShoppingBag';
 import ContactModal from '../components/modals/Contact';
 import PayModal from '../components/modals/Pay';
 import ThanksModal from '../components/modals/Thanks';
 
-function Modal () {
+function Modal ({ buyItems, addBuyItem }) {
     const [isCurrentModal, setCurrentModal] = useState(1);
-
+    
     return (
         <div>
             {
                 isCurrentModal === 1 && (
-                    <ShoppingModal isCurrentModal={isCurrentModal} setCurrentModal={setCurrentModal} />
+                    <ShoppingBagModal buyItems={buyItems} isCurrentModal={isCurrentModal} setCurrentModal={setCurrentModal} />
                 )
             }
             {
                 isCurrentModal === 2 && (
-                    <ContactModal isCurrentModal={isCurrentModal} setCurrentModal={setCurrentModal} />
+                    <ContactModal buyItems={buyItems} isCurrentModal={isCurrentModal} setCurrentModal={setCurrentModal} />
                 )
             }
             {
                 isCurrentModal === 3 && (
-                    <PayModal isCurrentModal={isCurrentModal} setCurrentModal={setCurrentModal} />
+                    <PayModal buyItems={buyItems} addBuyItem={addBuyItem} isCurrentModal={isCurrentModal} setCurrentModal={setCurrentModal} />
                 )
             }
             {
