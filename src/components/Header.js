@@ -4,8 +4,8 @@ import '../assets/style/Header.css';
 
 function Header () {
     return (
-        <div className='flex h-[86px]'>
-            {/* <button className='hamburger'>
+        <div className='flex h-[86px] items-center pl-[24px]'>
+            <button className='hamburger'>
                 <svg width="14px" height="12px" viewBox='0 0 14 12'>
                     <title>hamburger menu</title>
                     <g g="true" id='Page-1' stroke="none" stroke-width="1" fill="none" fillRule='evenodd'>
@@ -29,7 +29,7 @@ function Header () {
             </a>
 
             <ul className='menu_list uppercase'>
-                <li>
+                {/* <li>
                     <a href='/music'>
                         <span>Music</span>
                     </a>
@@ -63,8 +63,8 @@ function Header () {
                     <a href='/shows'>
                         <span>shows</span>
                     </a>
-                </li>
-                <li>
+                </li> */}
+                {/* <li>
                     <a href='/complex-volume'>
                         <span>
                             <svg xmlns='http://www.w3.org/2000/svg' width='53' height='34' viewBox='0 0 53 34'>
@@ -73,8 +73,8 @@ function Header () {
                             </svg>
                         </span>
                     </a>
-                </li>
-            </ul> */}
+                </li> */}
+            </ul>
         </div>
     );
 }
