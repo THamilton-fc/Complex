@@ -1,8 +1,19 @@
-import React from 'react';
+import { React, useState, useEffect } from 'react';
 
 import findLogo from '../../assets/img/FIndlogo 1.png';
 
-function ContactModal ({ isCurrentModal, setCurrentModal }) {
+function ContactModal ({ buyItems, isCurrentModal, setCurrentModal }) {
+    const [subTotal, setSubTotal] = useState(0);
+    
+    useEffect(() => {
+        var sum = 0;
+        buyItems.map((buyItem) => (
+            sum += buyItem.price
+        ));
+        setSubTotal(sum);
+        console.log(sum);
+    }, [buyItems]);
+
     const nextStep = () => {
         isCurrentModal++;
         setCurrentModal(isCurrentModal);
@@ -13,7 +24,7 @@ function ContactModal ({ isCurrentModal, setCurrentModal }) {
     }
 
     return (
-        <div className='font-sans w-[547px] h-[1100px] rounded-2xl bg-white bg-[#FFFFFF] pt-8 shadow-[0_0_20px_rgba(0,0,0,0.1)]'>
+        <div className='font-sans w-[547px] h-auto rounded-2xl bg-white bg-[#FFFFFF] pt-8 shadow-[0_0_20px_rgba(0,0,0,0.1)]'>
             <div className='px-[113px]'>
                 <div>
                     <h1 className='text-[18px] tracking-[2px] font-semibold'>Contact Information</h1>
@@ -67,27 +78,31 @@ function ContactModal ({ isCurrentModal, setCurrentModal }) {
                 <div className='pt-8 text-[16px] tracking-[2px] leading-[28px] font-medium'>
                     <div className='flex justify-between items-center'>
                         <p>Subtotal</p>
-                        <p>$1,050.00</p>
+                        <p>${ subTotal.toLocaleString("en-US", { style: "decimal", minimumFractionDigits: 2, maximumFractionDigits: 2 }) }</p>
+                    </div>
+                    <div className='flex justify-between items-center'>
+                        <p>Shiping</p>
+                        <p>TBD</p>
                     </div>
                     <div className='flex pb-6 justify-between items-center'>
-                        <p>Shiping</p>
-                        <p>$50.00</p>
+                        <p>Tax</p>
+                        <p>TBD</p>
                     </div>
                     <div className='border-t border-black pt-2 pb-8'>
                         <div className='flex justify-between items-center'>
                             <p>Total</p>
-                            <p>$1,100.00</p>
+                            <p>TBD</p>
                         </div>
                     </div>
                 </div>
                 <button
-                    className='w-[172px] h-[36px] rounded-lg bg-[#145CE7] text-[16px] text-white font-semibold'
+                    className='w-[227px] h-[36px] mb-[56px] rounded-lg bg-[#145CE7] text-[16px] text-white font-semibold'
                     onClick={nextStep}
                 >
-                    PAY NOW
+                    ORDER REVIEW
                 </button>
             </div>
-            <div className='flex justify-center items-center gap-x-[8px] float-right pt-[19px] pr-[24px]'>
+            <div className='flex justify-center items-center gap-x-[8px] float-right pr-[24px] mt-[-40px]'>
                 <p className='text-[#767676] text-[12px]'>Powered by</p>
                 <img className='w-[51px] h-[20px]' src={findLogo} alt='' />
             </div>
