@@ -3,7 +3,7 @@ import { React, useState } from 'react';
 import findLogo from '../../assets/img/FIndlogo 1.png';
 import Arrow from '../../assets/img/arrow.png';
 
-function ShoppingModal ({ itemData, buyItems, addBuyItem }) {
+function ShoppingModal ({ itemData, buyItems, addBuyItem, setIsTopModalVisible, setIsPantsModalVisible }) {
     const addToCart = () => {
         const data = {
             image: itemData.image,
@@ -13,6 +13,9 @@ function ShoppingModal ({ itemData, buyItems, addBuyItem }) {
         };
         buyItems.push(data);
         addBuyItem(buyItems);
+
+        setIsTopModalVisible(false);
+        setIsPantsModalVisible(false);
 
         window.scrollTo({
             top: 0,

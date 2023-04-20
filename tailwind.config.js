@@ -6,8 +6,14 @@ module.exports = {
   theme: {
     fontFamily: {
       'mont': ['Montserrat', 'sans-serif'],
+      'neue': ['neue-haas-unica', 'sans-serif'],
+      'times': ['Times New Roman'],
     },
-    extend: {},
+    extend: {
+      backgroundImage: {
+        'pattern': 'url(https://images.complex.com/complex/image/upload/f_auto,q_auto/complex_edge-v3_lqcs5n.png)',
+      }
+    },
   },
   plugins: [],
 }

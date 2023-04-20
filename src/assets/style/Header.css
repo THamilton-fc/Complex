@@ -69,6 +69,7 @@
 .menu_list {
     display: flex;
     align-items: center;
-    grid-area: auto;
-    font-family: neue-haas-unica, sans-serif;
+    grid-gap: 15px;
+    font-size: 15px;
+    font-weight: 800;
 }
