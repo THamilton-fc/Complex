@@ -11,7 +11,6 @@ function ContactModal ({ buyItems, formData, setFormData, isCurrentModal, setCur
             sum += buyItem.price
         ));
         setSubTotal(sum);
-        console.log(sum);
     }, [buyItems]);
 
     const nextStep = () => {

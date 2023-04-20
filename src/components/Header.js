@@ -7,18 +7,11 @@ import shopping_mark_white from '../assets/img/shop-mark.png';
 
 function Header({ buyItems, addBuyItem, setModalVisible }) {
     const [isShoppingBagModalVisible, setIsShoppingBagModalVisible] = useState(false);
-    const [isCheckOutVisible, setIsCheckOutVisible] = useState(false);
     const shoppingBagModalRef = useRef(null);
 
     const showCheckout = (e) => {
         setIsShoppingBagModalVisible(true);
     };
-
-    useEffect(() => {
-        if (buyItems.length > 0) {
-            setIsCheckOutVisible(true);
-        }
-    }, [buyItems, addBuyItem]);
 
     useEffect(() => {
         function handleClickOutside(event) {
@@ -32,8 +25,6 @@ function Header({ buyItems, addBuyItem, setModalVisible }) {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, [shoppingBagModalRef]);
-
-    console.log('header', buyItems, isCheckOutVisible);
 
     return (
         <div className='fixed w-full z-[9999]'>
@@ -213,7 +204,7 @@ function Header({ buyItems, addBuyItem, setModalVisible }) {
             </div>
             <div className=''>
                 {
-                    isCheckOutVisible &&
+                    buyItems.length > 0 &&
                     <div
                         className='absolute top-[74px] right-[24px]  cursor-pointer'
                         onClick={showCheckout}
@@ -231,7 +222,11 @@ function Header({ buyItems, addBuyItem, setModalVisible }) {
                 {
                     isShoppingBagModalVisible &&
                     <div ref={shoppingBagModalRef} className='absolute top-[142px] right-[24px]'>
-                        <ShoppingBagModal buyItems={buyItems} setIsShoppingBagModalVisible={setIsShoppingBagModalVisible} setModalVisible={setModalVisible} />
+                        <ShoppingBagModal 
+                            buyItems={buyItems} 
+                            setIsShoppingBagModalVisible={setIsShoppingBagModalVisible} 
+                            setModalVisible={setModalVisible} 
+                        />
                     </div>
                 }
             </div>

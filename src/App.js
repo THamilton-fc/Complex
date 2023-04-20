@@ -6,7 +6,7 @@ import Home from './pages/Home';
 function App() {
   const [buyItems, addBuyItem] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
-  console.log('app', buyItems)
+
   return (
     <div className='flex'>
       <div>

@@ -6,15 +6,15 @@ import ThanksModal from '../components/modals/Thanks';
 
 function Modal ({ buyItems, addBuyItem }) {
     const [isCurrentModal, setCurrentModal] = useState(1);
+    const [formData, setFormData] = useState({});
 
     useEffect(() => {
         const data = localStorage.getItem('savedData');
-        if (data) {
+        if (data !== 'undefined' ) {
             setFormData(JSON.parse(data));
-        }
+        } 
     },[]);
 
-    const [formData, setFormData] = useState();
     
     return (
         <div>

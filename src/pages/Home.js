@@ -75,8 +75,6 @@ function Home ({buyItems, addBuyItem, modalVisible, setModalVisible}) {
         setIsPantsModalVisible(true);
     };
 
-    console.log('home',buyItems)
-
     return (
         <div className='pr-[15px] pt-[86px] font-neue'>
             <div className='flex'>

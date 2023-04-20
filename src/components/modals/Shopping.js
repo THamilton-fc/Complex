@@ -12,8 +12,7 @@ function ShoppingModal ({ itemData, buyItems, addBuyItem, setIsTopModalVisible, 
             size: selectedBodySize,
             price: itemData.price
         };
-        buyItems.push(data);
-        addBuyItem(buyItems);
+        addBuyItem([...buyItems, data]);
 
         setIsTopModalVisible(false);
         setIsPantsModalVisible(false);
