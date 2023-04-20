@@ -2,7 +2,7 @@ import { React, useState, useEffect } from 'react';
 
 import findLogo from '../../assets/img/FIndlogo 1.png';
 
-function PayModal ({ buyItems, addBuyItem, isCurrentModal, setCurrentModal }) {
+function PayModal ({ buyItems, formData, addBuyItem, isCurrentModal, setCurrentModal }) {
     const nextStep = () => {
         isCurrentModal++;
         setCurrentModal(isCurrentModal);
@@ -78,14 +78,14 @@ function PayModal ({ buyItems, addBuyItem, isCurrentModal, setCurrentModal }) {
                         <tbody>
                             <tr>
                                 <td className='pb-4'>Name</td>
-                                <td className='pb-4'>Akeii Cange</td>
+                                <td className='pb-4'>{formData.name}</td>
                                 <td className='pb-4'>
                                     <button className='text-[#145CE6] font-semibold'>EDIT</button>
                                 </td>
                             </tr>
                             <tr>
                                 <td className='pb-8'>Email</td>
-                                <td className='pb-8'>akcange@gmail.com</td>
+                                <td className='pb-8'>{formData.email}</td>
                             </tr>
                             <tr>
                                 <td className='pb-6'>Shipping</td>

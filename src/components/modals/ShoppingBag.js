@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import findLogo from '../../assets/img/FIndlogo 1.png';
 
-function ShoppingBagModal ({ buyItems, isCurrentModal, setCurrentModal }) {
+function ShoppingBagModal ({ buyItems, setIsShoppingBagModalVisible, setModalVisible }) {
     const [subTotal, setSubTotal] = useState(0);
     useEffect(() => {
         var sum = 0;
@@ -14,12 +14,12 @@ function ShoppingBagModal ({ buyItems, isCurrentModal, setCurrentModal }) {
     }, [buyItems]);
 
     const nextStep = () => {
-        isCurrentModal++;
-        setCurrentModal(isCurrentModal);
         window.scrollTo({
-            top: 150,
+            top: 0,
             behavior: 'smooth'
         });
+        setIsShoppingBagModalVisible(false);
+        setModalVisible(true);
     }
 
     return (

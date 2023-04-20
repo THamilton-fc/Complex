@@ -1,16 +1,14 @@
 import { React, useState, useEffect, useRef } from 'react';
 
 import shopping_mark_blue from '../assets/img/union.png';
-import shopping_mark_white from '../assets/img/shop-mark.png';
-
 import Image1 from '../assets/img/main-2.png';
 import Image2 from '../assets/img/main-3.png';
 import Image3 from '../assets/img/main-4.png';
 
-import Modal from '../components/Modal';
 import ShoppingModal from '../components/modals/Shopping';
+import Modal from '../components/Modal';
 
-function Home () {
+function Home ({buyItems, addBuyItem, modalVisible, setModalVisible}) {
     const topData = {
         image: "/images/sample-top.png",
         name: "Political Campaign Sweatshirt Regular Fit in Black",
@@ -28,9 +26,7 @@ function Home () {
     const topModalRef = useRef(null);
     const [isPantsModalVisible, setIsPantsModalVisible] = useState(false);
     const pantsModalRef = useRef(null);
-    const [buyItems, addBuyItem] = useState([]);
-    const [isPayModalVisible, setIsPayModalVisible] = useState(false);
-    const PayModalRef = useRef(null);
+    const modalRef = useRef(null);
 
     useEffect(() => {
         function handleClickOutside(event) {
@@ -60,8 +56,8 @@ function Home () {
 
     useEffect(() => {
         function handleClickOutside(event) {
-          if (PayModalRef.current && !PayModalRef.current.contains(event.target)) {
-            setIsPayModalVisible(false);
+          if (modalRef.current && !modalRef.current.contains(event.target)) {
+            setIsPantsModalVisible(false);
           }
         }
     
@@ -69,7 +65,7 @@ function Home () {
         return () => {
           document.removeEventListener("mousedown", handleClickOutside);
         };
-    }, [PayModalRef]);
+    }, [modalRef]);
 
     const handleTopShoppingButton = () => {
         setIsTopModalVisible(true);
@@ -79,12 +75,10 @@ function Home () {
         setIsPantsModalVisible(true);
     };
 
-    const showCheckout = () => {
-        setIsPayModalVisible(true);
-    };
+    console.log('home',buyItems)
 
     return (
-        <div className='pr-[15px] font-neue'>
+        <div className='pr-[15px] pt-[86px] font-neue'>
             <div className='flex'>
                 <div className='bg-pattern bg-cover w-[20px]'>
                 </div>
@@ -184,7 +178,7 @@ function Home () {
                 </div>
             </div>
 
-            <div className='flex'>
+            <div className='flex z-[100]'>
                 <div className='bg-pattern bg-cover w-[19px]'>
                 </div>
                 <div className='relative pt-[140px] flex flex-col justify-center items-center w-full'>
@@ -255,27 +249,11 @@ function Home () {
             </div>
 
             {
-                buyItems.length !== 0 && 
-                <div 
-                    className='absolute top-[74px] right-[24px] cursor-pointer'
-                    onClick={showCheckout}
-                >
-                    <div className='w-[163px] h-[40px] flex justify-evenly items-center bg-[#145CE6] rounded-lg '>
-                        <img src={shopping_mark_white} alt='' />
-                        <p className='text-white font-mont font-semibold text-[16px] leading-[28px] tracking-[1px]'>CHECK OUT</p>
-                    </div>
-                        <div className='absolute top-[-10px] right-[-10px] w-[20px] h-[20px] flex justify-center items-center bg-[#ff0000] rounded-full'>
-                            <p className='text-white font-mont text-[14px] font-semibold'>{ buyItems.length }</p>
-                        </div>
-                </div>
-            }
-            {
-                isPayModalVisible && 
-                <div ref={PayModalRef} className='absolute top-[142px] right-[24px]'>
+                modalVisible && 
+                <div ref={modalRef} className='absolute top-[142px] right-[24px]'>
                     <Modal buyItems={buyItems} addBuyItem={addBuyItem} />
                 </div>
             }
-
         </div>
     );
 }

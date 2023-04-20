@@ -1,14 +1,17 @@
-import React from 'react';
+import { React, useState} from 'react';
 
 import Header from './components/Header';
 import Home from './pages/Home';
 
 function App() {
+  const [buyItems, addBuyItem] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
+  console.log('app', buyItems)
   return (
     <div className='flex'>
       <div>
-        <Header />
-        <Home />
+        <Header buyItems={buyItems} addBuyItem={addBuyItem} setModalVisible={setModalVisible} />
+        <Home buyItems={buyItems} addBuyItem={addBuyItem} modalVisible={modalVisible} setModalVisible={setModalVisible} />
       </div>
     </div>
   );

@@ -4,7 +4,8 @@ import findLogo from '../../assets/img/FIndlogo 1.png';
 import Arrow from '../../assets/img/arrow.png';
 
 function ShoppingModal ({ itemData, buyItems, addBuyItem, setIsTopModalVisible, setIsPantsModalVisible }) {
-    const addToCart = () => {
+    const addToCart = (e) => {
+        e.preventDefault();
         const data = {
             image: itemData.image,
             name: itemData.name,
@@ -16,11 +17,6 @@ function ShoppingModal ({ itemData, buyItems, addBuyItem, setIsTopModalVisible, 
 
         setIsTopModalVisible(false);
         setIsPantsModalVisible(false);
-
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
     }
 
     const [selectedBodySize, setSelectedBodySize] = useState('Size');
