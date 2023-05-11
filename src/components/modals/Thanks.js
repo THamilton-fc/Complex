@@ -3,7 +3,7 @@ import React from 'react';
 import vectorImage from '../../assets/img/Vector.png';
 import findLogo from '../../assets/img/FIndlogo 1.png';
 
-function ThanksModal () {
+function ThanksModal ({ form }) {
 
     return (
         <div className='font-sans w-[576px] h-[434px] rounded-2xl bg-white bg-[#FFFFFF] pt-8 px-10 shadow-[0_0_20px_rgba(0,0,0,0.1)]'>
@@ -13,7 +13,7 @@ function ThanksModal () {
                 </div>
                 <p className='text-[20px] font-semibold tracking-[2px]'>Thank you for your purchase!</p>
             </div>
-            <p className='pt-6 text-[16px] font-medium tracking-[2px]'>Order confirmation sent to akcange@gmail.com.</p>
+            <p className='pt-6 text-[16px] font-medium tracking-[2px]'>Order confirmation sent to { form.email }.</p>
             <p className='pt-3 text-[#767676] text-[14px] tracking-[2px]'>Estimated delivery time: 5 to 7 business days</p>
             <div className='mt-9 pt-10 border-t border-black'>
                 <p className='text-[16px] tracking-[2px] font-medium'>Create an account with us for faster checkout.</p>

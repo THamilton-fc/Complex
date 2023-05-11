@@ -1,7 +1,7 @@
 import { React, useState} from 'react';
 
 import Header from './components/Header';
-import Home from './pages/Home';
+import Home from './pages/Home/Home';
 
 function App() {
   const [buyItems, addBuyItem] = useState([]);

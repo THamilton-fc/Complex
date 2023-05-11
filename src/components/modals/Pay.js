@@ -1,8 +1,15 @@
 import { React, useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { setBuyItems } from '../../pages/Home/Store/actions';
 
 import findLogo from '../../assets/img/FIndlogo 1.png';
 
-function PayModal ({ buyItems, formData, addBuyItem, isCurrentModal, setCurrentModal }) {
+function PayModal ({ form, isCurrentModal, setCurrentModal }) {
+    const dispatch = useDispatch();
+    const homeStore = useSelector((state) => state.dashboard);
+    const { buyItems } = homeStore;
+
     const nextStep = () => {
         isCurrentModal++;
         setCurrentModal(isCurrentModal);
@@ -11,7 +18,7 @@ function PayModal ({ buyItems, formData, addBuyItem, isCurrentModal, setCurrentM
             behavior: 'smooth'
         });
         
-        addBuyItem([]);
+        dispatch(setBuyItems([]));
     }
 
     const [subTotal, setSubTotal] = useState(0);
@@ -21,7 +28,6 @@ function PayModal ({ buyItems, formData, addBuyItem, isCurrentModal, setCurrentM
             sum += buyItem.price
         ));
         setSubTotal(sum);
-        console.log(sum);
     }, [buyItems]);
 
     return (
@@ -58,11 +64,11 @@ function PayModal ({ buyItems, formData, addBuyItem, isCurrentModal, setCurrentM
                         </tr>
                         <tr>
                             <td className='pr-[24px]'>Shipping</td>
-                            <td className='flex justify-end'>$50.00</td>
+                            <td className='flex justify-end'>TBD</td>
                         </tr>
                         <tr>
                             <td className='pr-[24px]'>Tax</td>
-                            <td className='flex justify-end'>$167.00</td>
+                            <td className='flex justify-end'>TBD</td>
                         </tr>
                         <tr className='font-semibold'>
                             <td className='pr-[24px]'>Total</td>
@@ -78,20 +84,20 @@ function PayModal ({ buyItems, formData, addBuyItem, isCurrentModal, setCurrentM
                         <tbody>
                             <tr>
                                 <td className='pb-4'>Name</td>
-                                <td className='pb-4'>{formData.name}</td>
+                                <td className='pb-4'>{form.name}</td>
                                 <td className='pb-4'>
                                     <button className='text-[#145CE6] font-semibold'>EDIT</button>
                                 </td>
                             </tr>
                             <tr>
                                 <td className='pb-8'>Email</td>
-                                <td className='pb-8'>{formData.email}</td>
+                                <td className='pb-8'>{form.email}</td>
                             </tr>
                             <tr>
                                 <td className='pb-6'>Shipping</td>
                                 <td className='pb-6'>
-                                    <p>122 W 5th Ave, Apt 606</p>
-                                    <p>New York, NY 10008</p>
+                                    <p>{form.street}, {form.unitno} </p>
+                                    <p>{form.city}, {form.zipcode}</p>
                                 </td>
                             </tr>
                             <tr>

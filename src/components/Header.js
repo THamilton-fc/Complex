@@ -1,11 +1,14 @@
 import { React, useState, useEffect, useRef } from 'react';
+import { useSelector } from 'react-redux';
 
 import ShoppingBagModal from './modals/ShoppingBag';
 
 import '../assets/style/Header.css';
-import shopping_mark_white from '../assets/img/shop-mark.png';
 
-function Header({ buyItems, addBuyItem, setModalVisible }) {
+function Header({ addBuyItem, setModalVisible }) {
+    const homeStore = useSelector((state) => state.dashboard);
+    const { buyItems } = homeStore;
+
     const [isShoppingBagModalVisible, setIsShoppingBagModalVisible] = useState(false);
     const shoppingBagModalRef = useRef(null);
 
@@ -210,7 +213,7 @@ function Header({ buyItems, addBuyItem, setModalVisible }) {
                         onClick={showCheckout}
                     >
                         <div className='w-[163px] h-[40px] flex justify-evenly items-center bg-[#145CE6] rounded-lg '>
-                            <img src={shopping_mark_white} alt='' />
+                            <img src="/images/shop-mark.png" alt='' />
                             <p className='text-white font-mont font-semibold text-[16px] leading-[28px] tracking-[1px]'>CHECK OUT</p>
                         </div>
                         <div className='absolute top-[-10px] right-[-10px] w-[20px] h-[20px] flex justify-center items-center bg-[#ff0000] rounded-full'>

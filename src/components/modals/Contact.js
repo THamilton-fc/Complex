@@ -1,10 +1,12 @@
 import { React, useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
-import findLogo from '../../assets/img/FIndlogo 1.png';
-
-function ContactModal ({ buyItems, formData, setFormData, isCurrentModal, setCurrentModal }) {
+function ContactModal ({ form, setFormData, isCurrentModal, setCurrentModal }) {
     const [subTotal, setSubTotal] = useState(0);
     
+    const homeStore = useSelector((state) => state.dashboard);
+    const { buyItems } = homeStore;
+
     useEffect(() => {
         var sum = 0;
         buyItems.map((buyItem) => (
@@ -26,7 +28,7 @@ function ContactModal ({ buyItems, formData, setFormData, isCurrentModal, setCur
     const [showData, setShowData] = useState();
 
     const autoFill = () => {
-        setShowData(formData);
+        setShowData(form);
     };
 
     const handleChange = (event) => {
@@ -72,6 +74,20 @@ function ContactModal ({ buyItems, formData, setFormData, isCurrentModal, setCur
                         </div>
                     </div>
                     <h1 className='pt-6 text-[18px] tracking-[2px] font-semibold'>Payment Method</h1>
+                    <div className='flex gap-x-[12px] pt-[16px]'>
+                        <button className='flex gap-x-[5px] w-[154px] h-[36px] bg-white rounded-lg border border-[rgba(212, 212, 212, 0.8)] justify-center items-center'>
+                            <img src='/images/G_Mark.png' alt='' width={14.27} height={12.47} />
+                            <img src='/images/Pay_Letter.png' alt='' width={21.8} height={14.14} />
+                        </button>
+                        <button className='flex w-[154px] h-[36px] bg-black rounded-lg items-center justify-center'>
+                            <img src='/images/ApplePay.png' alt='' />
+                        </button>
+                    </div>
+                    <div className='flex items-center justify-center gap-x-[8px] pt-[24px]'>
+                        <div className='w-[95px] h-[0px] border-[0.5px] border-[#D4D4D4]'></div>
+                        <p className='text-[12px] text-[#767676] tracking-[1px]'>Or pay with card</p>
+                        <div className='w-[95px] h-[0px] border-[0.5px] border-[#D4D4D4]'></div>
+                    </div>
                     <div className='pt-4 flex flex-col gap-y-[8px]'>
                         <label className='text-[14px] tracking-[2px]'>Card Number</label>
                         <input className='text-[14px] tracking-[2px] font-medium bg-[#F5F5F5] w-[320px] rounded-lg h-[40px] px-4' type='text' id='cardnum' name='cardnum' autoComplete='cardnum' value={showData?.cardnum || ''} onChange={handleChange} onClick={autoFill} required />
@@ -116,7 +132,7 @@ function ContactModal ({ buyItems, formData, setFormData, isCurrentModal, setCur
             </div>
             <div className='flex justify-center items-center gap-x-[8px] float-right pr-[24px] mt-[-40px]'>
                 <p className='text-[#767676] text-[12px]'>Powered by</p>
-                <img className='w-[51px] h-[20px]' src={findLogo} alt='' />
+                <img className='w-[51px] h-[20px]' src="/images/Findlogo 1.png" alt='' />
             </div>
         </div>
     );

@@ -4,7 +4,7 @@ import ContactModal from '../components/modals/Contact';
 import PayModal from '../components/modals/Pay';
 import ThanksModal from '../components/modals/Thanks';
 
-function Modal ({ buyItems, addBuyItem }) {
+function Modal () {
     const [isCurrentModal, setCurrentModal] = useState(1);
     const [formData, setFormData] = useState({});
 
@@ -20,17 +20,17 @@ function Modal ({ buyItems, addBuyItem }) {
         <div>
             {
                 isCurrentModal === 1 && (
-                    <ContactModal buyItems={buyItems} formData={formData} setFormData={setFormData} isCurrentModal={isCurrentModal} setCurrentModal={setCurrentModal} />
+                    <ContactModal form={formData} setFormData={setFormData} isCurrentModal={isCurrentModal} setCurrentModal={setCurrentModal} />
                 )
             }
             {
                 isCurrentModal === 2 && (
-                    <PayModal buyItems={buyItems} formData={formData} addBuyItem={addBuyItem} isCurrentModal={isCurrentModal} setCurrentModal={setCurrentModal} />
+                    <PayModal form={formData} isCurrentModal={isCurrentModal} setCurrentModal={setCurrentModal} />
                 )
             }
             {
                 isCurrentModal === 3 && (
-                    <ThanksModal />
+                    <ThanksModal form={formData} />
                 )
             }
         </div>

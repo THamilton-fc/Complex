@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+
+import { setModalVisible } from '../../pages/Home/Store/actions';
 
 import findLogo from '../../assets/img/FIndlogo 1.png';
 
-function ShoppingBagModal ({ buyItems, setIsShoppingBagModalVisible, setModalVisible }) {
+function ShoppingBagModal ({ buyItems, setIsShoppingBagModalVisible }) {
     const [subTotal, setSubTotal] = useState(0);
     useEffect(() => {
         var sum = 0;
@@ -12,13 +15,15 @@ function ShoppingBagModal ({ buyItems, setIsShoppingBagModalVisible, setModalVis
         setSubTotal(sum);
     }, [buyItems]);
 
+    const dispatch = useDispatch();
+
     const nextStep = () => {
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
         });
         setIsShoppingBagModalVisible(false);
-        setModalVisible(true);
+        dispatch(setModalVisible(true));
     }
 
     return (
