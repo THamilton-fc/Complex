@@ -18,6 +18,7 @@ function Home() {
     const { productInfo, isModalStatus } = homeStore;
 
     useEffect(() => {
+        dispatch(setModalVisible(false));
         dispatch(setProductInfo());
     }, [dispatch]);
 
