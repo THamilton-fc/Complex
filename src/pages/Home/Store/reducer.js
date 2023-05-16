@@ -1,9 +1,10 @@
-import { PRODUCT_INFO, SET_BUYITEMS_INFO, ADD_BUYITEMS_INFO, SET_MODAL_STATUS } from './constants';
+import { PRODUCT_INFO, SET_BUYITEMS_INFO, ADD_BUYITEMS_INFO, SET_MODAL_STATUS, SET_STRIPE_CLIENT_SECRET } from './constants';
 
 const initialState = {
     productInfo: [],
     buyItems: [],
-    isModalStatus: Boolean
+    isModalStatus: Boolean,
+    clientSecret: ""
 };
 
 const dashboardReducer = (state = initialState, action) => {
@@ -27,7 +28,12 @@ const dashboardReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isModalStatus: action.data
-            }
+            };
+        case SET_STRIPE_CLIENT_SECRET: 
+            return {
+                ...state,
+                clientSecret: action.data
+            };
         default: 
             return state;
     }

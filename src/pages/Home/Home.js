@@ -52,92 +52,92 @@ function Home() {
         setSelectedModal(product);
     }
 
-    const data = [
-        {
-            "id": 1,
-            "productInfo": [
-                {
-                    "size": {
-                        "BOOL": true
-                    },
-                    "seller": {
-                        "S": "Farfetch"
-                    },
-                    "bucket_name": {
-                        "S": "AMIRI Graphic-print Straight-leg Trousers"
-                    },
-                    "image_url": {
-                        "S": "https://findcommercedemo.s3.us-east-2.amazonaws.com/AMIRI+Graphic-print+Straight-leg+Trousers/sample-pants.png"
-                    },
-                    "price": {
-                        "N": "806"
-                    },
-                    "id": {
-                        "N": "2"
-                    },
-                    "name": {
-                        "S": "AMIRI Graphic-print Straight-leg Trousers"
-                    },
-                    "color": {
-                        "S": ""
-                    }
-                }
-            ],
-            "itemInfo": {
-                "name": "AMIRI Graphic-print Straight-leg Trousers",
-                "value": 0.6390124559402466,
-                "position": {
-                    "top_row": 0.6555254459381104,
-                    "left_col": 0.2983192503452301,
-                    "width": 0.45042380690574646,
-                    "height": 0.34252142906188965
-                },
-                "image": "https://customerimg.s3.amazonaws.com/Thu May 11 2023 10:37:23 GMT+0000 (Coordinated Universal Time)-pants.jpg"
-            }
-        },
-        {
-            "id": 2,
-            "productInfo": [
-                {
-                    "size": {
-                        "BOOL": true
-                    },
-                    "seller": {
-                        "S": "Balenciaga"
-                    },
-                    "bucket_name": {
-                        "S": "Political Campaign Sweatshirt Regular Fit in Black"
-                    },
-                    "price": {
-                        "N": "1050"
-                    },
-                    "image_url": {
-                        "S": "https://findcommercedemo.s3.us-east-2.amazonaws.com/Political+Campaign+Sweatshirt+Regular+Fit+in+Black/sample-top.png"
-                    },
-                    "id": {
-                        "N": "1"
-                    },
-                    "name": {
-                        "S": "Political Campaign Sweatshirt Regular Fit in Black"
-                    },
-                    "color": {
-                        "S": ""
-                    }
-                }
-            ],
-            "itemInfo": {
-                "name": "Political Campaign Sweatshirt Regular Fit in Black",
-                "value": 0.20424659550189972,
-                "position": {
-                    "top_row": 0.28915759921073914,
-                    "left_col": 0.24830053746700287,
-                    "width": 0.4991799145936966,
-                    "height": 0.4333416521549225
-                },
-                "image": "https://customerimg.s3.amazonaws.com/Thu May 11 2023 10:37:23 GMT+0000 (Coordinated Universal Time)-top.jpg"
-            }
-        }
-    ]
+    // const data = [
+    //     {
+    //         "id": 1,
+    //         "productInfo": [
+    //             {
+    //                 "size": {
+    //                     "BOOL": true
+    //                 },
+    //                 "seller": {
+    //                     "S": "Farfetch"
+    //                 },
+    //                 "bucket_name": {
+    //                     "S": "AMIRI Graphic-print Straight-leg Trousers"
+    //                 },
+    //                 "image_url": {
+    //                     "S": "https://findcommercedemo.s3.us-east-2.amazonaws.com/AMIRI+Graphic-print+Straight-leg+Trousers/sample-pants.png"
+    //                 },
+    //                 "price": {
+    //                     "N": "806"
+    //                 },
+    //                 "id": {
+    //                     "N": "2"
+    //                 },
+    //                 "name": {
+    //                     "S": "AMIRI Graphic-print Straight-leg Trousers"
+    //                 },
+    //                 "color": {
+    //                     "S": ""
+    //                 }
+    //             }
+    //         ],
+    //         "itemInfo": {
+    //             "name": "AMIRI Graphic-print Straight-leg Trousers",
+    //             "value": 0.6390124559402466,
+    //             "position": {
+    //                 "top_row": 0.6555254459381104,
+    //                 "left_col": 0.2983192503452301,
+    //                 "width": 0.45042380690574646,
+    //                 "height": 0.34252142906188965
+    //             },
+    //             "image": "https://customerimg.s3.amazonaws.com/Thu May 11 2023 10:37:23 GMT+0000 (Coordinated Universal Time)-pants.jpg"
+    //         }
+    //     },
+    //     {
+    //         "id": 2,
+    //         "productInfo": [
+    //             {
+    //                 "size": {
+    //                     "BOOL": true
+    //                 },
+    //                 "seller": {
+    //                     "S": "Balenciaga"
+    //                 },
+    //                 "bucket_name": {
+    //                     "S": "Political Campaign Sweatshirt Regular Fit in Black"
+    //                 },
+    //                 "price": {
+    //                     "N": "1050"
+    //                 },
+    //                 "image_url": {
+    //                     "S": "https://findcommercedemo.s3.us-east-2.amazonaws.com/Political+Campaign+Sweatshirt+Regular+Fit+in+Black/sample-top.png"
+    //                 },
+    //                 "id": {
+    //                     "N": "1"
+    //                 },
+    //                 "name": {
+    //                     "S": "Political Campaign Sweatshirt Regular Fit in Black"
+    //                 },
+    //                 "color": {
+    //                     "S": ""
+    //                 }
+    //             }
+    //         ],
+    //         "itemInfo": {
+    //             "name": "Political Campaign Sweatshirt Regular Fit in Black",
+    //             "value": 0.20424659550189972,
+    //             "position": {
+    //                 "top_row": 0.28915759921073914,
+    //                 "left_col": 0.24830053746700287,
+    //                 "width": 0.4991799145936966,
+    //                 "height": 0.4333416521549225
+    //             },
+    //             "image": "https://customerimg.s3.amazonaws.com/Thu May 11 2023 10:37:23 GMT+0000 (Coordinated Universal Time)-top.jpg"
+    //         }
+    //     }
+    // ]
 
     return (
         <div className='pr-[15px] pt-[86px] font-neue'>
@@ -249,7 +249,7 @@ function Home() {
                         <figcaption className='pt-[15px] pr-[800px] italic text-[10px] text-[#9b9b9b] text-left'>Image via Alimba Pausigere</figcaption>
                         {
                             productInfo.result ? (
-                                data.map((product, index) => (
+                                productInfo.result.map((product, index) => (
                                     <div className='absolute' style={{ top: `${product.itemInfo.position.top_row * 100}%`, left: `${product.itemInfo.position.left_col * 100}%` }}>
                                         <button
                                             className='w-[40px] h-[40px] bg-white flex justify-center items-center rounded-lg'

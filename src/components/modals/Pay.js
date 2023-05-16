@@ -1,24 +1,68 @@
 import { React, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { loadStripe } from "@stripe/stripe-js";
+import stripePackage from 'stripe';
 
 import { setBuyItems } from '../../pages/Home/Store/actions';
 
 import findLogo from '../../assets/img/FIndlogo 1.png';
 
+const stripePromise = loadStripe("pk_test_51MzJUPEQJGo8pVHjNIoutQBdkAlUBVzy0AtZFUoH9OhGfLiGICKgjuA7MboYViLtUORMhCMK3BRf6i23Jb4sVoDk00pes2MRvd");
+const stripe = stripePackage('sk_test_51MzJUPEQJGo8pVHjEE661zqmhGgkKhnDmM62SO4BURvDSXgz9u0ghvZznYB2v3JHMAUXHpmcEmU0Z9Jt1sILkorU00jc5Q2Ca8');
+
 function PayModal ({ form, isCurrentModal, setCurrentModal }) {
     const dispatch = useDispatch();
     const homeStore = useSelector((state) => state.dashboard);
-    const { buyItems } = homeStore;
+    const { buyItems, clientSecret } = homeStore;
+    
+    const [paymentMethod, setPaymentMethod] = useState({});
 
-    const nextStep = () => {
+    useEffect(() => {
+        stripe.paymentMethods.create({
+            type: 'card',
+            card: {
+              number: form.cardNum,
+              exp_month: 8,
+              exp_year: 2024,
+              cvc: form.cvv,
+            },
+            billing_details: {
+              address: {
+                city: form.city,
+                country: 'us',
+                postal_code: form.zipcode,
+              },
+              email: form.email,
+              name: form.name,
+              phone: '+1 234 567 8902'
+            }
+        }).then(paymentMethod => {
+            setPaymentMethod(paymentMethod);
+        });
+    },[form]);
+
+    const nextStep = async () => {
         isCurrentModal++;
         setCurrentModal(isCurrentModal);
         window.scrollTo({
             top: 150,
             behavior: 'smooth'
         });
-        
+        await pay();
         dispatch(setBuyItems([]));
+    }
+
+    const pay = async () => {
+        const Stripe = await stripePromise;
+
+        Stripe.confirmCardPayment(
+            clientSecret,
+            {
+                payment_method: paymentMethod.id,
+            }
+        ).then(function (result) {
+            console.log(result)
+          });
     }
 
     const [subTotal, setSubTotal] = useState(0);
