@@ -146,7 +146,7 @@ function ContactModal ({ form, setFormData, isCurrentModal, setCurrentModal }) {
                     <div className='flex gap-x-[12px] w-full'>
                         <div className='pt-4 flex flex-col w-[75%] gap-y-[8px]'>
                             <label className='text-[14px] tracking-[2px]'>Card Number</label>
-                            <input className='text-[14px] tracking-[2px] font-medium bg-[#F5F5F5] rounded-lg h-[40px] px-4' type='text' id='cardNum' name='cardNum' autoComplete='cardNum' value={handleCardDisplay()} maxlength="19" onChange={handleChange} onClick={autoFill} required />
+                            <input className='text-[14px] tracking-[2px] font-medium bg-[#F5F5F5] rounded-lg h-[40px] px-4' type='text' id='cardNum' name='cardNum' autoComplete='cardNum' value={handleCardDisplay()} maxLength="19" onChange={handleChange} onClick={autoFill} required />
                         </div>
                         <div className='pt-4 flex flex-col w-[25%] gap-y-[8px]'>
                             <label className='text-[14px] tracking-[2px]'>Exp Date</label>
@@ -160,7 +160,7 @@ function ContactModal ({ form, setFormData, isCurrentModal, setCurrentModal }) {
                         </div>
                         <div className='pt-4 flex flex-col gap-y-[8px]'>
                             <label className='text-[14px] tracking-[2px]'>CVV</label>
-                            <input className='text-[14px] tracking-[2px] font-medium bg-[#F5F5F5] w-[133px] rounded-lg h-[40px] px-4' type='text' id='cvv' name='cvv' autoComplete='cvv' maxlength="3" pattern="[0-9][0-9][0-9]" value={showData?.cvv || ''} onChange={handleChange} onClick={autoFill} required />
+                            <input className='text-[14px] tracking-[2px] font-medium bg-[#F5F5F5] w-[133px] rounded-lg h-[40px] px-4' type='text' id='cvv' name='cvv' autoComplete='cvv' maxLength="3" pattern="[0-9][0-9][0-9]" value={showData?.cvv || ''} onChange={handleChange} onClick={autoFill} required />
                         </div>
                     </div>
                 </div>

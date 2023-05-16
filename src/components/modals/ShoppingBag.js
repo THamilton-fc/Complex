@@ -33,22 +33,24 @@ function ShoppingBagModal ({ buyItems, setIsShoppingBagModalVisible }) {
             </div>
 
             <table>
-                <tr className='font-mont text-[14px] leading-[17px] tracking-[3px]'>
-                    <td></td>
-                    <td>Item</td>
-                    <td className='pl-[82px]'>Price</td>
-                </tr>
-                {
-                    buyItems.map((buyItem) => (
-                        <tr className='font-mont text-[14px] leading-[18px]'>
-                            <td className='pr-[53px]'>
-                                <img src={buyItem.image} alt='' width={88} />
-                            </td>
-                            <td className='w-[154px] tracking-[2px]'>{buyItem.name}({buyItem.size})</td>
-                            <td className='pl-[82px] tracking-[1px]'>${buyItem.price.toLocaleString("en-US", { style: "decimal", minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-                        </tr>
-                    ))
-                }
+                <tbody>
+                    <tr className='font-mont text-[14px] leading-[17px] tracking-[3px]'>
+                        <td></td>
+                        <td>Item</td>
+                        <td className='pl-[82px]'>Price</td>
+                    </tr>
+                    {
+                        buyItems.map((buyItem, index) => (
+                                <tr key={index} className='font-mont text-[14px] leading-[18px]'>
+                                    <td className='pr-[53px]'>
+                                        <img src={buyItem.image} alt='' width={88} />
+                                    </td>
+                                    <td className='w-[154px] tracking-[2px]'>{buyItem.name}({buyItem.size})</td>
+                                    <td className='pl-[82px] tracking-[1px]'>${buyItem.price.toLocaleString("en-US", { style: "decimal", minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                                </tr>
+                        ))
+                    }
+                </tbody>
             </table>
 
             <div className='w-[451px] border border-[#000000]'></div>
