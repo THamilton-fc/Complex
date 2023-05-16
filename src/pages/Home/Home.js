@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Loader from "react-loader-spinner";
 
 import { setProductInfo, setModalVisible } from './Store/actions';
 import ShoppingModal from '../../components/modals/Shopping';
@@ -250,10 +251,9 @@ function Home() {
                         {
                             productInfo.result ? (
                                 productInfo.result.map((product, index) => (
-                                    <div className='absolute' style={{ top: `${product.itemInfo.position.top_row * 100}%`, left: `${product.itemInfo.position.left_col * 100}%` }}>
+                                    <div key={index} className='absolute' style={{ top: `${product.itemInfo.position.top_row * 100}%`, left: `${product.itemInfo.position.left_col * 100}%` }}>
                                         <button
                                             className='w-[40px] h-[40px] bg-white flex justify-center items-center rounded-lg'
-                                            key={index}
                                             onClick={() => handleShoppingButton(product)}
                                         >
                                             <img src='/images/union.png' alt='' />
@@ -261,8 +261,8 @@ function Home() {
                                     </div>
                                 ))
                                 ) : (
-                                    <div className='absolute top-0 left-0'>
-                                        Loading ...
+                                    <div className='absolute top-[50%] left-[45%] flex'>
+                                        <Loader type="ThreeDots" color="#FFFFFF" height="100" width="100" />
                                     </div>
                             )
                         }
