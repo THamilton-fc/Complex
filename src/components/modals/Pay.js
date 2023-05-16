@@ -16,6 +16,7 @@ function PayModal ({ form, isCurrentModal, setCurrentModal }) {
     const { buyItems, clientSecret } = homeStore;
     
     const [paymentMethod, setPaymentMethod] = useState({});
+    const [ paymentResult, setPaymentResult] = useState('');
 
     useEffect(() => {
         stripe.paymentMethods.create({
@@ -34,22 +35,27 @@ function PayModal ({ form, isCurrentModal, setCurrentModal }) {
               },
               email: form.email,
               name: form.name,
-              phone: '+1 234 567 8902'
+              phone: form.phoneNum
             }
         }).then(paymentMethod => {
             setPaymentMethod(paymentMethod);
         });
     },[form]);
 
+    useEffect(() => {
+        if (paymentResult === "succeeded") {
+            dispatch(setBuyItems([]));
+            isCurrentModal++;
+            setCurrentModal(isCurrentModal);
+            window.scrollTo({
+                top: 150,
+                behavior: 'smooth'
+            });
+        }
+    },[dispatch, isCurrentModal, paymentResult, setCurrentModal]);
+
     const nextStep = async () => {
-        isCurrentModal++;
-        setCurrentModal(isCurrentModal);
-        window.scrollTo({
-            top: 150,
-            behavior: 'smooth'
-        });
         await pay();
-        dispatch(setBuyItems([]));
     }
 
     const pay = async () => {
@@ -61,8 +67,11 @@ function PayModal ({ form, isCurrentModal, setCurrentModal }) {
                 payment_method: paymentMethod.id,
             }
         ).then(function (result) {
-            console.log(result)
-          });
+            console.log('result', result)
+            if (result.paymentIntent.status === "succeeded") {
+                setPaymentResult("succeeded");
+            }
+        });
     }
 
     const [subTotal, setSubTotal] = useState(0);
@@ -146,7 +155,7 @@ function PayModal ({ form, isCurrentModal, setCurrentModal }) {
                             </tr>
                             <tr>
                                 <td>Payment</td>
-                                <td>VISA ending in 1110</td>
+                                <td>VISA ending in {form.cardNum.substring(15)}</td>
                             </tr>
                         </tbody>
                     </table>
