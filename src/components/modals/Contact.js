@@ -1,9 +1,12 @@
 import { React, useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { setClientSecret } from '../../pages/Home/Store/actions';
 
 function ContactModal ({ form, setFormData, isCurrentModal, setCurrentModal }) {
     const [subTotal, setSubTotal] = useState(0);
     
+    const dispatch = useDispatch();
     const homeStore = useSelector((state) => state.dashboard);
     const { buyItems } = homeStore;
 
@@ -23,12 +26,55 @@ function ContactModal ({ form, setFormData, isCurrentModal, setCurrentModal }) {
             behavior: 'smooth'
         });
         localStorage.setItem('savedData', JSON.stringify(showData));
+        dispatch(setClientSecret(subTotal * 100));
     }
 
     const [showData, setShowData] = useState();
 
     const autoFill = () => {
         setShowData(form);
+    };
+
+    const handleCardDisplay = () => {
+        if (!showData || !showData.cardNum) {
+            return ('');
+        } else {
+            const rawText = [...showData.cardNum.split(' ').join('')];
+            const creditCard = [];
+            rawText.forEach((t, i) => {
+                if (i % 4 === 0 && i !== 0) creditCard.push(' ')
+                creditCard.push(t)
+            });
+            return creditCard.join('');
+        }
+    }
+
+    const handleExpriyDisplay = () => {
+        if (!showData || !showData.expDate) {
+            return ('');
+        } else {
+            const expdate = showData.expDate;
+            const expDateFormatter =
+              expdate.replace(/\//g, "").substring(0, 2) +
+              (expdate.length > 2 ? "/" : "") +
+              expdate.replace(/\//g, "").substring(2, 4);
+        
+            return expDateFormatter;
+        }
+    };
+
+    const handlePhoneDisplay = () => {
+        if (!showData || !showData.phoneNum) {
+            return ('');
+        } else {
+            const rawText = [...showData.phoneNum.split(' ').join('')];
+            const phone_number = [];
+            rawText.forEach((t, i) => {
+                if (i === 2 || i === 5 || i === 8) phone_number.push(' ');
+                phone_number.push(t);
+            });
+            return phone_number.join('');
+        }
     };
 
     const handleChange = (event) => {
@@ -39,9 +85,10 @@ function ContactModal ({ form, setFormData, isCurrentModal, setCurrentModal }) {
 
     return (
         <div className='font-sans w-[547px] h-auto rounded-2xl bg-white bg-[#FFFFFF] pt-8 shadow-[0_0_20px_rgba(0,0,0,0.1)]'>
-            <div className='px-[113px]'>
+            <form className='px-[113px]' onSubmit={nextStep}>
                 <div>
                     <h1 className='text-[18px] tracking-[2px] font-semibold'>Contact Information</h1>
+                    
                     <div className='pt-4 flex flex-col gap-y-[8px]'>
                         <label className='text-[14px] tracking-[2px]'>Name</label>
                         <input className='text-[14px] tracking-[2px] font-medium bg-[#F5F5F5] w-[320px] rounded-lg h-[40px] px-4' type='text' id='name' name='name' autoComplete='name' value={showData?.name || ''} onChange={handleChange} onClick={autoFill} required />
@@ -50,7 +97,13 @@ function ContactModal ({ form, setFormData, isCurrentModal, setCurrentModal }) {
                         <label className='text-[14px] tracking-[2px]'>Email Address</label>
                         <input className='text-[14px] tracking-[2px] font-medium bg-[#F5F5F5] w-[320px] rounded-lg h-[40px] px-4' type='text' id='email' name='email' autoComplete='email' value={showData?.email || ''} onChange={handleChange} onClick={autoFill} required />
                     </div>
+                    <div className='pt-3 flex flex-col gap-y-[8px]'>
+                        <label className='text-[14px] tracking-[2px]'>Phone Number</label>
+                        <input className='text-[14px] tracking-[2px] font-medium bg-[#F5F5F5] w-[320px] rounded-lg h-[40px] px-4' type='text' id='phoneNum' name='phoneNum' autoComplete='phoneNum' maxLength={15} value={handlePhoneDisplay()} onChange={handleChange} onClick={autoFill} required />
+                    </div>
+
                     <h1 className='pt-6 text-[18px] tracking-[2px] font-semibold'>Shipping Address</h1>
+
                     <div className='pt-4 flex flex-col gap-y-[8px]'>
                         <label className='text-[14px] tracking-[2px]'>Street</label>
                         <input className='text-[14px] tracking-[2px] font-medium bg-[#F5F5F5] w-[320px] rounded-lg h-[40px] px-4' type='text' id='street' name='street' autoComplete='street' value={showData?.street || ''} onChange={handleChange} onClick={autoFill} required />
@@ -73,7 +126,9 @@ function ContactModal ({ form, setFormData, isCurrentModal, setCurrentModal }) {
                             <input className='text-[14px] tracking-[2px] font-medium bg-[#F5F5F5] w-[133px] rounded-lg h-[40px] px-4' type='text' id='zipcode' name='zipcode' autoComplete='zipcode' value={showData?.zipcode || ''} onChange={handleChange} onClick={autoFill} required />
                         </div>
                     </div>
+
                     <h1 className='pt-6 text-[18px] tracking-[2px] font-semibold'>Payment Method</h1>
+
                     <div className='flex gap-x-[12px] pt-[16px]'>
                         <button className='flex gap-x-[5px] w-[154px] h-[36px] bg-white rounded-lg border border-[rgba(212, 212, 212, 0.8)] justify-center items-center'>
                             <img src='/images/G_Mark.png' alt='' width={14.27} height={12.47} />
@@ -88,9 +143,15 @@ function ContactModal ({ form, setFormData, isCurrentModal, setCurrentModal }) {
                         <p className='text-[12px] text-[#767676] tracking-[1px]'>Or pay with card</p>
                         <div className='w-[95px] h-[0px] border-[0.5px] border-[#D4D4D4]'></div>
                     </div>
-                    <div className='pt-4 flex flex-col gap-y-[8px]'>
-                        <label className='text-[14px] tracking-[2px]'>Card Number</label>
-                        <input className='text-[14px] tracking-[2px] font-medium bg-[#F5F5F5] w-[320px] rounded-lg h-[40px] px-4' type='text' id='cardnum' name='cardnum' autoComplete='cardnum' value={showData?.cardnum || ''} onChange={handleChange} onClick={autoFill} required />
+                    <div className='flex gap-x-[12px] w-full'>
+                        <div className='pt-4 flex flex-col w-[75%] gap-y-[8px]'>
+                            <label className='text-[14px] tracking-[2px]'>Card Number</label>
+                            <input className='text-[14px] tracking-[2px] font-medium bg-[#F5F5F5] rounded-lg h-[40px] px-4' type='text' id='cardNum' name='cardNum' autoComplete='cardNum' value={handleCardDisplay()} maxlength="19" onChange={handleChange} onClick={autoFill} required />
+                        </div>
+                        <div className='pt-4 flex flex-col w-[25%] gap-y-[8px]'>
+                            <label className='text-[14px] tracking-[2px]'>Exp Date</label>
+                            <input className='text-[14px] tracking-[2px] font-medium bg-[#F5F5F5] rounded-lg h-[40px] px-4' type='text' id='expDate' name='expDate' autoComplete='expDate' value={handleExpriyDisplay()} onChange={handleChange} onClick={autoFill} required />
+                        </div>
                     </div>
                     <div className='flex gap-x-[12px]'>
                         <div className='pt-4 flex flex-col gap-y-[8px]'>
@@ -99,7 +160,7 @@ function ContactModal ({ form, setFormData, isCurrentModal, setCurrentModal }) {
                         </div>
                         <div className='pt-4 flex flex-col gap-y-[8px]'>
                             <label className='text-[14px] tracking-[2px]'>CVV</label>
-                            <input className='text-[14px] tracking-[2px] font-medium bg-[#F5F5F5] w-[133px] rounded-lg h-[40px] px-4' type='text' id='cvv' name='cvv' autoComplete='cvv' value={showData?.cvv || ''} onChange={handleChange} onClick={autoFill} required />
+                            <input className='text-[14px] tracking-[2px] font-medium bg-[#F5F5F5] w-[133px] rounded-lg h-[40px] px-4' type='text' id='cvv' name='cvv' autoComplete='cvv' maxlength="3" pattern="[0-9][0-9][0-9]" value={showData?.cvv || ''} onChange={handleChange} onClick={autoFill} required />
                         </div>
                     </div>
                 </div>
@@ -124,12 +185,12 @@ function ContactModal ({ form, setFormData, isCurrentModal, setCurrentModal }) {
                     </div>
                 </div>
                 <button
+                    type='submit'
                     className='w-[227px] h-[36px] mb-[56px] rounded-lg bg-[#145CE7] text-[16px] text-white font-semibold'
-                    onClick={nextStep}
                 >
                     ORDER REVIEW
                 </button>
-            </div>
+            </form>
             <div className='flex justify-center items-center gap-x-[8px] float-right pr-[24px] mt-[-40px]'>
                 <p className='text-[#767676] text-[12px]'>Powered by</p>
                 <img className='w-[51px] h-[20px]' src="/images/Findlogo 1.png" alt='' />
