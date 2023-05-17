@@ -1,11 +1,12 @@
 import { React, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import GooglePayButton from '@google-pay/button-react';
 
 import { setClientSecret } from '../../pages/Home/Store/actions';
 
-function ContactModal ({ form, setFormData, isCurrentModal, setCurrentModal }) {
+function ContactModal({ form, setFormData, isCurrentModal, setCurrentModal }) {
     const [subTotal, setSubTotal] = useState(0);
-    
+
     const dispatch = useDispatch();
     const homeStore = useSelector((state) => state.dashboard);
     const { buyItems } = homeStore;
@@ -55,10 +56,10 @@ function ContactModal ({ form, setFormData, isCurrentModal, setCurrentModal }) {
         } else {
             const expdate = showData.expDate;
             const expDateFormatter =
-              expdate.replace(/\//g, "").substring(0, 2) +
-              (expdate.length > 2 ? "/" : "") +
-              expdate.replace(/\//g, "").substring(2, 4);
-        
+                expdate.replace(/\//g, "").substring(0, 2) +
+                (expdate.length > 2 ? "/" : "") +
+                expdate.replace(/\//g, "").substring(2, 4);
+
             return expDateFormatter;
         }
     };
@@ -79,8 +80,8 @@ function ContactModal ({ form, setFormData, isCurrentModal, setCurrentModal }) {
 
     const handleChange = (event) => {
         const { name, value } = event.target;
-        setShowData((prevData) => ({ ...prevData,  [name]: value }));
-        setFormData((prevData) => ({ ...prevData,  [name]: value }));
+        setShowData((prevData) => ({ ...prevData, [name]: value }));
+        setFormData((prevData) => ({ ...prevData, [name]: value }));
     };
 
     return (
@@ -88,7 +89,7 @@ function ContactModal ({ form, setFormData, isCurrentModal, setCurrentModal }) {
             <form className='px-[113px]' onSubmit={nextStep}>
                 <div>
                     <h1 className='text-[18px] tracking-[2px] font-semibold'>Contact Information</h1>
-                    
+
                     <div className='pt-4 flex flex-col gap-y-[8px]'>
                         <label className='text-[14px] tracking-[2px]'>Name</label>
                         <input className='text-[14px] tracking-[2px] font-medium bg-[#F5F5F5] w-[320px] rounded-lg h-[40px] px-4' type='text' id='name' name='name' autoComplete='name' value={showData?.name || ''} onChange={handleChange} onClick={autoFill} required />
@@ -110,7 +111,7 @@ function ContactModal ({ form, setFormData, isCurrentModal, setCurrentModal }) {
                     </div>
                     <div className='pt-4 flex flex-col gap-y-[8px]'>
                         <label className='text-[14px] tracking-[2px]'>Apt/Unit No. (optional)</label>
-                        <input className='text-[14px] tracking-[2px] font-medium bg-[#F5F5F5] w-[320px] rounded-lg h-[40px] px-4' type='text' id='unitno' name='unitno' autoComplete='unitno' value={showData?.unitno || ''} onChange={handleChange} onClick={autoFill} required />
+                        <input className='text-[14px] tracking-[2px] font-medium bg-[#F5F5F5] w-[320px] rounded-lg h-[40px] px-4' type='text' id='unitno' name='unitno' autoComplete='unitno' value={showData?.unitno || ''} onChange={handleChange} onClick={autoFill} s />
                     </div>
                     <div className='pt-4 flex flex-col gap-y-[8px]'>
                         <label className='text-[14px] tracking-[2px]'>City</label>
@@ -130,11 +131,62 @@ function ContactModal ({ form, setFormData, isCurrentModal, setCurrentModal }) {
                     <h1 className='pt-6 text-[18px] tracking-[2px] font-semibold'>Payment Method</h1>
 
                     <div className='flex gap-x-[12px] pt-[16px]'>
-                        <button className='flex gap-x-[5px] w-[154px] h-[36px] bg-white rounded-lg border border-[rgba(212, 212, 212, 0.8)] justify-center items-center'>
-                            <img src='/images/G_Mark.png' alt='' width={14.27} height={12.47} />
-                            <img src='/images/Pay_Letter.png' alt='' width={21.8} height={14.14} />
-                        </button>
-                        <button className='flex w-[154px] h-[36px] bg-black rounded-lg items-center justify-center'>
+                        <GooglePayButton
+                            environment="TEST"
+                            paymentRequest={{
+                                apiVersion: 2,
+                                apiVersionMinor: 0,
+                                allowedPaymentMethods: [
+                                    {
+                                        type: 'CARD',
+                                        parameters: {
+                                            allowedAuthMethods: ['PAN_ONLY', 'CRYPTOGRAM_3DS'],
+                                            allowedCardNetworks: ['MASTERCARD', 'VISA'],
+                                        },
+                                        tokenizationSpecification: {
+                                            type: 'PAYMENT_GATEWAY',
+                                            parameters: {
+                                                gateway: 'stripe',
+                                                stripe_version:  '2022-11-15',
+                                                stripe_publishableKey: process.env.REACT_APP_STRIPE_PK_KEY
+                                            },
+                                        },
+                                    },
+                                ],
+                                merchantInfo: {
+                                    merchantId: 'RCTST0000008099',
+                                    merchantName: 'NNDMVVYW421S1',
+                                },
+                                transactionInfo: {
+                                    totalPriceStatus: 'FINAL',
+                                    totalPriceLabel: 'Total',
+                                    totalPrice: `${subTotal}`,
+                                    currencyCode: 'USD',
+                                    countryCode: 'US',
+                                },
+                                shippingAddressRequired: true,
+                                callbackIntents: ['SHIPPING_ADDRESS', 'PAYMENT_AUTHORIZATION'],
+                            }}
+                            onLoadPaymentData={paymentRequest => {
+                                console.log('Success', paymentRequest);
+                            }}
+                            onPaymentAuthorized={paymentData => {
+                                console.log('Payment Authorised Success', paymentData)
+                                return { transactionState: 'SUCCESS' }
+                            }
+                            }
+                            onPaymentDataChanged={paymentData => {
+                                console.log('On Payment Data Changed', paymentData)
+                                return {}
+                            }
+                            }
+                            existingPaymentMethodRequired='false'
+                            buttonColor='white'
+                            buttonType='plain'
+                            buttonSizeMode='fill'
+                            className='w-[154px]'
+                        />
+                        <button type='button' className='flex w-[154px] h-[36px] bg-black rounded-lg items-center justify-center'>
                             <img src='/images/ApplePay.png' alt='' />
                         </button>
                     </div>
@@ -167,7 +219,7 @@ function ContactModal ({ form, setFormData, isCurrentModal, setCurrentModal }) {
                 <div className='pt-8 text-[16px] tracking-[2px] leading-[28px] font-medium'>
                     <div className='flex justify-between items-center'>
                         <p>Subtotal</p>
-                        <p>${ subTotal.toLocaleString("en-US", { style: "decimal", minimumFractionDigits: 2, maximumFractionDigits: 2 }) }</p>
+                        <p>${subTotal.toLocaleString("en-US", { style: "decimal", minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
                     </div>
                     <div className='flex justify-between items-center'>
                         <p>Shiping</p>

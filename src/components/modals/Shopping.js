@@ -9,6 +9,8 @@ import Arrow from '../../assets/img/arrow.png';
 function ShoppingModal ({ selectedModal, setSelectedModal, selectedBodySize, setSelectedBodySize }) {
     const dispatch = useDispatch();
 
+    const [ message, setMessage ] = useState('');
+
     const addToCart = (e) => {
         e.preventDefault();
 
@@ -20,6 +22,12 @@ function ShoppingModal ({ selectedModal, setSelectedModal, selectedBodySize, set
                 size: selectedBodySize,
                 price: selectedModal.productInfo[0].price.N * 1
             };
+            if (data.size !== 'Size') {
+                dispatch(addBuyItems(data));
+                setSelectedModal(null);
+            } else {
+                setMessage('Please select the size');
+            }
         } else {
             data = {
                 name: selectedModal.productInfo[0].name.S,
@@ -28,10 +36,10 @@ function ShoppingModal ({ selectedModal, setSelectedModal, selectedBodySize, set
                 color: selectedModal.productInfo[0].color.S,
                 image: selectedModal.productInfo[0].image_url.S
             };
+            dispatch(addBuyItems(data));
+            setSelectedModal(null);
         }
 
-        dispatch(addBuyItems(data));
-        setSelectedModal(null);
     }
 
     const selected = selectedBodySize;
@@ -43,6 +51,7 @@ function ShoppingModal ({ selectedModal, setSelectedModal, selectedBodySize, set
 
     const handleBodySizeClick = (bodysize) => {
         setSelectedBodySize(bodysize);
+        setMessage('');
         toggleDropdown();
     };
 
@@ -86,6 +95,7 @@ function ShoppingModal ({ selectedModal, setSelectedModal, selectedBodySize, set
                                                 ))}
                                             </div>
                                         )}
+                                        <span className="text-[12px] pl-2 text-[#ff0000]">{message}</span>
                                     </div>
                                 ) : (
                                     <div className='flex gap-x-[20px] pb-[8px] text-[16px] text-black'>

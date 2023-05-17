@@ -7,8 +7,8 @@ import { setBuyItems } from '../../pages/Home/Store/actions';
 
 import findLogo from '../../assets/img/FIndlogo 1.png';
 
-const stripePromise = loadStripe("pk_test_51MzJUPEQJGo8pVHjNIoutQBdkAlUBVzy0AtZFUoH9OhGfLiGICKgjuA7MboYViLtUORMhCMK3BRf6i23Jb4sVoDk00pes2MRvd");
-const stripe = stripePackage('sk_test_51MzJUPEQJGo8pVHjEE661zqmhGgkKhnDmM62SO4BURvDSXgz9u0ghvZznYB2v3JHMAUXHpmcEmU0Z9Jt1sILkorU00jc5Q2Ca8');
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PK_KEY);
+const stripe = stripePackage(process.env.REACT_APP_STRIPE_SK_KEY);
 
 function PayModal ({ form, isCurrentModal, setCurrentModal }) {
     const dispatch = useDispatch();
@@ -95,8 +95,8 @@ function PayModal ({ form, isCurrentModal, setCurrentModal }) {
                         <td className='pl-[82px]'>Price</td>
                     </tr>
                     {
-                        buyItems.map((buyItem) => (
-                            <tr className='font-mont text-[14px] leading-[18px]'>
+                        buyItems.map((buyItem, index) => (
+                            <tr key={index} className='font-mont text-[14px] leading-[18px]'>
                                 <td className='pr-[53px]'>
                                     <img src={buyItem.image} alt='' width={88} />
                                 </td>
