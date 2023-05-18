@@ -88,7 +88,7 @@ function ContactModal({ form, setFormData, isCurrentModal, setCurrentModal }) {
     const applePay = () => {
         console.log('apple');
         const request = {
-            countryCode: 'US',
+            countryCode: "US",
             currencyCode: "usd",
             merchantCapabilities: ["supports3DS"],
             supportedNetworks: ["visa", "masterCard"],
