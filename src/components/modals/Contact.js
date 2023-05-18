@@ -86,10 +86,7 @@ function ContactModal({ form, setFormData, isCurrentModal, setCurrentModal }) {
     };
 
     const applePay = () => {
-        if (!window.ApplePaySession) {
-            alert("ApplePaySession is undefined. Use Safari for testing.");
-            return;
-        }
+        console.log('apple');
         const request = {
             countryCode: 'US',
             currencyCode: 'usd',
@@ -101,11 +98,15 @@ function ContactModal({ form, setFormData, isCurrentModal, setCurrentModal }) {
                 amount: subTotal
             }
         };
-        console.log('APPLEPAYSESSION', window.ApplePaySession);
-        const session = new ApplePaySession(3, request);
-        console.log(session);
-        window.ApplePaySession = session;
-        console.log('ApplePaySession', window.ApplePaySession);
+        if (!window.ApplePaySession) {
+            alert("ApplePaySession is undefined. Use Safari for testing.");
+        } else {
+            console.log('APPLEPAYSESSION', window.ApplePaySession);
+            const session = new window.ApplePaySession(3, request);
+            console.log(session);
+            window.ApplePaySession = session;
+            console.log('ApplePaySession', window.ApplePaySession);
+        }
     };
 
     return (
@@ -210,7 +211,7 @@ function ContactModal({ form, setFormData, isCurrentModal, setCurrentModal }) {
                             buttonSizeMode='fill'
                             className='w-[154px]'
                         />
-                        <button type='button' onClick={applePay()} className='flex w-[154px] h-[40px] bg-black rounded-lg items-center justify-center'>
+                        <button type='button' onClick={applePay} className='flex w-[154px] h-[40px] bg-black rounded-lg items-center justify-center'>
                             <img className="h-[38px]" src='/images/ApplePay.png' alt='' />
                         </button>
                         {/* <div className='w-[154px] h-[70px]'>
