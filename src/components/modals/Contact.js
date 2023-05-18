@@ -306,7 +306,7 @@ function ContactModal({ form, setFormData, isCurrentModal, setCurrentModal }) {
             </form>
             <div className='flex justify-center items-center gap-x-[8px] float-right pr-[24px] mt-[-40px]'>
                 <p className='text-[#767676] text-[12px]'>Powered by</p>
-                <img className='w-[51px] h-[20px]' src="/images/Findlogo 1.png" alt='' />
+                <img className='w-[51px] h-[20px]' src='/images/Findlogo.png' alt='' />
             </div>
         </div>
     );
