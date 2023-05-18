@@ -1,9 +1,10 @@
 import { React, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import GooglePayButton from '@google-pay/button-react';
-// import { ApplePayButton } from 'react-apple-pay-button';
 
 import { setClientSecret } from '../../pages/Home/Store/actions';
+
+import findLogo from '../../assets/img/FIndlogo 1.png';
 
 function ContactModal({ form, setFormData, isCurrentModal, setCurrentModal }) {
     const [subTotal, setSubTotal] = useState(0);
@@ -86,7 +87,6 @@ function ContactModal({ form, setFormData, isCurrentModal, setCurrentModal }) {
     };
 
     const applePay = () => {
-        console.log('apple');
         const request = {
             countryCode: "US",
             currencyCode: "USD",
@@ -101,11 +101,8 @@ function ContactModal({ form, setFormData, isCurrentModal, setCurrentModal }) {
         if (!window.ApplePaySession) {
             alert("ApplePaySession is undefined. Use Safari for testing.");
         } else {
-            console.log('APPLEPAYSESSION', window.ApplePaySession);
             const session = new window.ApplePaySession(3, request);
-            console.log(session);
             window.ApplePaySession = session;
-            console.log('ApplePaySession', window.ApplePaySession);
 
             // session.onvalidatemerchant = async (event) => {
             //     // Call your own server to request a new merchant session.
@@ -247,9 +244,6 @@ function ContactModal({ form, setFormData, isCurrentModal, setCurrentModal }) {
                         <button type='button' onClick={applePay} className='flex w-[154px] h-[40px] bg-black rounded-lg items-center justify-center'>
                             <img className="h-[38px]" src='/images/ApplePay.png' alt='' />
                         </button>
-                        {/* <div className='w-[154px] h-[70px]'>
-                            <ApplePayButton theme="dark">{""}</ApplePayButton>
-                        </div> */}
                     </div>
                     <div className='flex items-center justify-center gap-x-[8px] pt-[24px]'>
                         <div className='w-[95px] h-[0px] border-[0.5px] border-[#D4D4D4]'></div>
@@ -306,7 +300,7 @@ function ContactModal({ form, setFormData, isCurrentModal, setCurrentModal }) {
             </form>
             <div className='flex justify-center items-center gap-x-[8px] float-right pr-[24px] mt-[-40px]'>
                 <p className='text-[#767676] text-[12px]'>Powered by</p>
-                <img className='w-[51px] h-[20px]' src='/images/Findlogo.png' alt='' />
+                <img className='w-[51px] h-[20px]' src={findLogo} alt='' />
             </div>
         </div>
     );
