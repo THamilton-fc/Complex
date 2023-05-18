@@ -1,6 +1,7 @@
 import { React, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import GooglePayButton from '@google-pay/button-react';
+// import { ApplePayButton } from 'react-apple-pay-button/dist';
 
 import { setClientSecret } from '../../pages/Home/Store/actions';
 
@@ -82,6 +83,10 @@ function ContactModal({ form, setFormData, isCurrentModal, setCurrentModal }) {
         const { name, value } = event.target;
         setShowData((prevData) => ({ ...prevData, [name]: value }));
         setFormData((prevData) => ({ ...prevData, [name]: value }));
+    };
+
+    const applePay = () => {
+        
     };
 
     return (
@@ -186,9 +191,12 @@ function ContactModal({ form, setFormData, isCurrentModal, setCurrentModal }) {
                             buttonSizeMode='fill'
                             className='w-[154px]'
                         />
-                        <button type='button' className='flex w-[154px] h-[36px] bg-black rounded-lg items-center justify-center'>
-                            <img src='/images/ApplePay.png' alt='' />
+                        <button type='button' className='flex w-[154px] h-[40px] bg-black rounded-lg items-center justify-center'>
+                            <img className="h-[38px]" src='/images/ApplePay.png' alt='' />
                         </button>
+                        {/* <div className='w-[154px] h-[70px]'>
+                            <ApplePayButton theme="dark">{""}</ApplePayButton>
+                        </div> */}
                     </div>
                     <div className='flex items-center justify-center gap-x-[8px] pt-[24px]'>
                         <div className='w-[95px] h-[0px] border-[0.5px] border-[#D4D4D4]'></div>

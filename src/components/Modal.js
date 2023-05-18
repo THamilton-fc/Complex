@@ -1,8 +1,12 @@
-import { React, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 
 import ContactModal from '../components/modals/Contact';
 import PayModal from '../components/modals/Pay';
 import ThanksModal from '../components/modals/Thanks';
+
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PK_KEY);
 
 function Modal () {
     const [isCurrentModal, setCurrentModal] = useState(1);
@@ -20,7 +24,9 @@ function Modal () {
         <div>
             {
                 isCurrentModal === 1 && (
-                    <ContactModal form={formData} setFormData={setFormData} isCurrentModal={isCurrentModal} setCurrentModal={setCurrentModal} />
+                    <Elements stripe={stripePromise}>
+                        <ContactModal form={formData} setFormData={setFormData} isCurrentModal={isCurrentModal} setCurrentModal={setCurrentModal} />
+                    </Elements>
                 )
             }
             {
