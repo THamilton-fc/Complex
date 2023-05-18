@@ -89,7 +89,7 @@ function ContactModal({ form, setFormData, isCurrentModal, setCurrentModal }) {
         console.log('apple');
         const request = {
             countryCode: 'US',
-            currencyCode: 'usd',
+            currencyCode: "usd",
             merchantCapabilities: ["supports3DS"],
             supportedNetworks: ["visa", "masterCard"],
             total: {
@@ -106,6 +106,39 @@ function ContactModal({ form, setFormData, isCurrentModal, setCurrentModal }) {
             console.log(session);
             window.ApplePaySession = session;
             console.log('ApplePaySession', window.ApplePaySession);
+
+            // session.onvalidatemerchant = async (event) => {
+            //     // Call your own server to request a new merchant session.
+            //     const merchantSession = await validateMerchant();
+            //     session.completeMerchantValidation(merchantSession);
+            // };
+
+            session.onpaymentmethodselected = (event) => {
+                const update = {};
+                session.completePaymentMethodSelection(update);
+            };
+
+            session.onshippingmethodselected = (event) => {
+                const update = {};
+                session.completeShippingMethodSelection(update);
+            };
+
+            session.onshippingcontactselected = (event) => {
+                const update = {};
+                session.completeShippingContactSelection(update);
+            };
+
+            session.onpaymentauthorized = (event) => {
+                const result = {
+                    status: window.ApplePaySession.STATUS_SUCCESS
+                };
+                session.completePayment(result);
+            };
+
+            session.oncancel = (event) => {
+            };
+
+            session.begin();
         }
     };
 
