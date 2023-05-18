@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import GooglePayButton from '@google-pay/button-react';
-// import { ApplePayButton } from 'react-apple-pay-button/dist';
+// import { ApplePayButton } from 'react-apple-pay-button';
 
 import { setClientSecret } from '../../pages/Home/Store/actions';
 
@@ -86,7 +86,26 @@ function ContactModal({ form, setFormData, isCurrentModal, setCurrentModal }) {
     };
 
     const applePay = () => {
-        
+        if (!window.ApplePaySession) {
+            alert("ApplePaySession is undefined. Use Safari for testing.");
+            return;
+        }
+        const request = {
+            countryCode: 'US',
+            currencyCode: 'usd',
+            merchantCapabilities: ["supports3DS"],
+            supportedNetworks: ["visa", "masterCard"],
+            total: {
+                label: "Demo (Card is not charged)",
+                type: "final",
+                amount: subTotal
+            }
+        };
+        console.log('APPLEPAYSESSION', window.ApplePaySession);
+        const session = new ApplePaySession(3, request);
+        console.log(session);
+        window.ApplePaySession = session;
+        console.log('ApplePaySession', window.ApplePaySession);
     };
 
     return (
@@ -152,7 +171,7 @@ function ContactModal({ form, setFormData, isCurrentModal, setCurrentModal }) {
                                             type: 'PAYMENT_GATEWAY',
                                             parameters: {
                                                 gateway: 'stripe',
-                                                stripe_version:  '2022-11-15',
+                                                stripe_version: '2022-11-15',
                                                 stripe_publishableKey: process.env.REACT_APP_STRIPE_PK_KEY
                                             },
                                         },
@@ -191,7 +210,7 @@ function ContactModal({ form, setFormData, isCurrentModal, setCurrentModal }) {
                             buttonSizeMode='fill'
                             className='w-[154px]'
                         />
-                        <button type='button' className='flex w-[154px] h-[40px] bg-black rounded-lg items-center justify-center'>
+                        <button type='button' onClick={applePay()} className='flex w-[154px] h-[40px] bg-black rounded-lg items-center justify-center'>
                             <img className="h-[38px]" src='/images/ApplePay.png' alt='' />
                         </button>
                         {/* <div className='w-[154px] h-[70px]'>
